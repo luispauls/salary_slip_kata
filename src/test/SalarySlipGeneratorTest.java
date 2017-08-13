@@ -29,19 +29,20 @@ public class SalarySlipGeneratorTest {
 	public BigDecimal annualGrossSalary;
 	@Parameter(value = 1) 
 	public BigDecimal monthlyGrossSalary;
+	@Parameter(value = 2)
+	public BigDecimal nationalInsuranceContribution;
 	
 	@Parameters(name = "annualGrossSalary: {0}")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {new BigDecimal("5000.00"), new BigDecimal("416.67")},
-                {new BigDecimal("9060.00"), new BigDecimal("755.00")}
+                {new BigDecimal("5000.00"), new BigDecimal("416.67"), new BigDecimal("0.00")},
+                {new BigDecimal("9060.00"), new BigDecimal("755.00"), new BigDecimal("10.00")}
         });
     }
 	
 	@Before
 	public void setUp() {
 		generator = new SalarySlipGenerator();
-		employee = new Employee("12345","John J Doe", new BigDecimal(5000.00));
 	}
 	
 	@Test
@@ -51,6 +52,7 @@ public class SalarySlipGeneratorTest {
 		assertEquals(salarySlip.getEmployeeID(), employee.getID());
 		assertEquals(salarySlip.getEmployeeName(), employee.getName());
 		assertEquals(salarySlip.getMonthlyGrossSalary(),monthlyGrossSalary);
+		assertEquals(salarySlip.getNationalInsuranceContribution(),nationalInsuranceContribution);
 	}
 
 
